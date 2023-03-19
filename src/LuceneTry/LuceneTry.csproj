@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\LuceneTry.Data.Generator\LuceneTry.Data.Generator.csproj" />
     <ProjectReference Include="..\LuceneTry.Data\LuceneTry.Data.csproj" />
   </ItemGroup>
 
