@@ -1,17 +1,20 @@
-﻿namespace LuceneTry.Data.Generator;
+﻿using System.Text;
+
+namespace LuceneTry.Data.Generator;
 
 public class StringGenerator
 {
     private static readonly Random _random = new ();
-
+    
     public static string RandomString(int length)
     {
-        if (length < 1)
-            throw new ArgumentException("String length cannot be less than 1");
+        StringBuilder sb = new (length);
+        for (int i = 0; i < length; i++)
+        {
+            int x = _random.Next(65, 122);
+            sb.Append((char)x);
+        }
 
-        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-
-        return new string(Enumerable.Repeat(chars, length)
-            .Select(s => s[_random.Next(s.Length)]).ToArray());
+        return sb.ToString();
     }
 }

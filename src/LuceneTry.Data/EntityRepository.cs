@@ -6,14 +6,20 @@ using System.Diagnostics;
 namespace LuceneTry.Data;
 public class EntityRepository
 {
-    public async Task<IEnumerable<Entity>> GetAsync()
+    private const string _connectionString = "Server=.\\SQLExpress;Database=LuceneTryDb;Integrated Security=True;";
+
+    public async Task<IEnumerable<Entity>> GetAsync(string query)
     {
-        using var connection = new SqlConnection("Server=.\\SQLExpress;Database=GTRACS-NONPROD;Integrated Security=True;");
+        using var connection = new SqlConnection(_connectionString);
         await connection.OpenAsync();
 
         try
         {
-            string sql = "select * from dbo.Tires";
+            string sql = "" +
+                "select " +
+                "   * " +
+                "from dbo.Entities " +
+                (!string.IsNullOrEmpty(query) ? "where StringField1 like '%" + query + "%'" : string.Empty);
 
             var result = await connection.QueryAsync<Entity>(sql);
 
@@ -28,7 +34,7 @@ public class EntityRepository
 
     public async Task<bool> AddAsync(IEnumerable<Entity> entities)
     {
-        using var connection = new SqlConnection("Server=.\\SQLExpress;Database=LuceneTryDb;Integrated Security=True;");
+        using var connection = new SqlConnection(_connectionString);
         await connection.OpenAsync();
 
         try
