@@ -17,7 +17,7 @@ public static class CollectionExtensions
 
             while (position < count)
             {
-                slices.Add(collection.Skip(0).Take(sliceSize));
+                slices.Add(collection.Skip(position).Take(sliceSize));
                 position += sliceSize;
             }
         }
